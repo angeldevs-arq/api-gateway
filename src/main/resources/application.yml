@@ -1,0 +1,39 @@
+server:
+  port: 8080
+
+spring:
+  application:
+    name: api-gateway
+
+  cloud:
+    gateway:
+      routes:
+        - id: iam-service
+          uri: http://localhost:8081
+          predicates:
+            - Path=/api/v1/iam/**
+
+      default-filters:
+        - name: DedupeResponseHeader
+          args:
+            Access-Control-Allow-Origin: RETAIN_FIRST
+            Access-Control-Allow-Credentials: RETAIN_FIRST
+
+      globalcors:
+        corsConfigurations:
+          '[/**]':
+            allowedOrigins: "*"
+            allowedMethods: "*"
+            allowedHeaders: "*"
+
+springdoc:
+  swagger-ui:
+    enabled: true
+    path: /
+    urls:
+      - name: IAM Service
+        url: /v3/api-docs
+
+logging:
+  level:
+    org.springframework.cloud.gateway: DEBUG
