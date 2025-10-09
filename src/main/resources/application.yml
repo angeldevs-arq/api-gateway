@@ -7,9 +7,14 @@ spring:
 
   cloud:
     gateway:
+      discovery:
+        locator:
+          enabled: true
+          lower-case-service-id: true
+
       routes:
         - id: iam-service
-          uri: http://localhost:8081
+          uri: lb://iam-service
           predicates:
             - Path=/api/v1/iam/**
 
@@ -33,6 +38,13 @@ springdoc:
     urls:
       - name: IAM Service
         url: /v3/api-docs
+
+eureka:
+  client:
+    service-url:
+      defaultZone: http://localhost:8761/eureka/
+    register-with-eureka: true
+    fetch-registry: true
 
 logging:
   level:
