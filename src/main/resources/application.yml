@@ -38,6 +38,21 @@ spring:
           predicates:
             - Path=/api/v1/tasks/**
 
+        - id: subscription-plans
+          uri: lb://subscription-service
+          predicates:
+            - Path=/api/v1/plans/**
+
+        - id: subscription-subscription
+          uri: lb://subscription-service
+          predicates:
+            - Path=/api/v1/subscription/**
+
+        - id: subscription-payment-method
+          uri: lb://subscription-service
+          predicates:
+            - Path=/api/v1/payment-method/**
+
 
       default-filters:
         - name: DedupeResponseHeader
