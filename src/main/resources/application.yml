@@ -23,6 +23,22 @@ spring:
           predicates:
             - Path=/api/v1/profiles/**
 
+        - id: reviews-service
+          uri: lb://reviews-service
+          predicates:
+            - Path=/api/v1/reviews/**
+
+        - id: task-events
+          uri: lb://task-event-service
+          predicates:
+            - Path=/api/v1/events/**
+
+        - id: task-tasks
+          uri: lb://task-event-service
+          predicates:
+            - Path=/api/v1/tasks/**
+
+
       default-filters:
         - name: DedupeResponseHeader
           args:
