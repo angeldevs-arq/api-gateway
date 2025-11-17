@@ -5,6 +5,11 @@ spring:
   application:
     name: api-gateway
 
+  boot:
+    admin:
+      client:
+        url: http://localhost:9090
+
   cloud:
     gateway:
       discovery:
@@ -16,7 +21,7 @@ spring:
         - id: iam-service
           uri: lb://iam-service
           predicates:
-            - Path=/api/v1/iam/**
+            - Path=/api/v1/iam/**, /api/v1/users/**
 
         - id: profile-service
           uri: lb://profile-service
@@ -52,6 +57,10 @@ spring:
           uri: lb://subscription-service
           predicates:
             - Path=/api/v1/payment-method/**
+        - id: event-quote-service
+          uri: lb://event-quote-service
+          predicates:
+            - Path= /api/v1/quotes/**, /api/v1/social-events/**,/api/v1/customers/**, /api/v1/organizers/**
 
 
       default-filters:
@@ -66,6 +75,10 @@ spring:
             allowedOrigins: "*"
             allowedMethods: "*"
             allowedHeaders: "*"
+
+authorization:
+  jwt:
+    secret: 14db3b405fd39d8a7434ea25d19e80eba402da04a4807ffa95114e92a140dd1c
 
 springdoc:
   swagger-ui:
