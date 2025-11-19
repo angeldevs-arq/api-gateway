@@ -57,11 +57,26 @@ spring:
           uri: lb://subscription-service
           predicates:
             - Path=/api/v1/payment-method/**
+
         - id: event-quote-service
           uri: lb://event-quote-service
           predicates:
-            - Path= /api/v1/quotes/**, /api/v1/social-events/**,/api/v1/customers/**, /api/v1/organizers/**
+            - Path= /api/v1/quotes/**
 
+        - id: event-quote-service
+          uri: lb://event-quote-service
+          predicates:
+            - Path= /api/v1/social-events/**
+             
+        - id: event-quote-service
+          uri: lb://event-quote-service
+          predicates:
+            - Path= /api/v1/customers/**
+
+        - id: event-quote-service
+          uri: lb://event-quote-service
+          predicates:
+            - Path= /api/v1/organizers/**
 
       default-filters:
         - name: DedupeResponseHeader
