@@ -21,7 +21,12 @@ spring:
         - id: iam-service
           uri: lb://iam-service
           predicates:
-            - Path=/api/v1/iam/**, /api/v1/users/**
+            - Path=/api/v1/iam/**
+
+        - id: iam-service
+          uri: lb://iam-service
+          predicates:
+            - Path=/api/v1/users/**
 
         - id: profile-service
           uri: lb://profile-service
